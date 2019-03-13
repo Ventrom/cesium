@@ -4,6 +4,7 @@ define([
         '../Core/defaultValue',
         '../Core/defined',
         '../Core/defineProperties',
+        '../Core/destroyObject',
         '../Core/DeveloperError',
         '../Core/Event',
         '../Core/getTimestamp',
@@ -26,6 +27,7 @@ define([
         defaultValue,
         defined,
         defineProperties,
+        destroyObject,
         DeveloperError,
         Event,
         getTimestamp,
@@ -251,6 +253,7 @@ define([
 
                 levelZeroTiles[i].freeResources();
             }
+            levelZeroTiles.length = 0;
         }
 
         primitive._levelZeroTiles = undefined;
@@ -486,7 +489,10 @@ define([
      * @see QuadtreePrimitive#isDestroyed
      */
     QuadtreePrimitive.prototype.destroy = function() {
+        clearTileLoadQueue(this);
+        this._tileReplacementQueue.trimTiles(0);
         this._tileProvider = this._tileProvider && this._tileProvider.destroy();
+        destroyObject(this);
     };
 
     var comparisonPoint;
@@ -1191,6 +1197,7 @@ define([
         for (i = 0; i < tryNextFrame.length; i++) {
             tilesToUpdateHeights.push(tryNextFrame[i]);
         }
+        tryNextFrame.length = 0;
     }
 
     function createRenderCommandsForSelectedTiles(primitive, frameState) {

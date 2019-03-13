@@ -2212,6 +2212,7 @@ define([
         primitive._error = error;
         primitive._state = state;
         frameState.afterRender.push(function() {
+            if (primitive.isDestroyed()) return;
             primitive._ready = primitive._state === PrimitiveState.COMPLETE || primitive._state === PrimitiveState.FAILED;
             if (!defined(error)) {
                 primitive._readyPromise.resolve(primitive);

@@ -356,7 +356,7 @@ define([
     };
 
     CubeMap.prototype.destroy = function() {
-        this._context._gl.deleteTexture(this._texture);
+        this._texture && this._context._gl.deleteTexture(this._texture);
         this._positiveX = destroyObject(this._positiveX);
         this._negativeX = destroyObject(this._negativeX);
         this._positiveY = destroyObject(this._positiveY);

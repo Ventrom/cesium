@@ -2127,13 +2127,13 @@ define([
 
             while (stack.length > 0) {
                 var tile = stack.pop();
-                tile.destroy();
 
                 var children = tile.children;
                 var length = children.length;
                 for (var i = 0; i < length; ++i) {
                     stack.push(children[i]);
                 }
+                tile.destroy();
             }
         }
 

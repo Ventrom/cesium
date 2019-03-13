@@ -55,14 +55,16 @@ defineSuite([
     });
 
     it('constructor', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 2);
-        expect(batchTable.attributes).toBe(unsignedByteAttributes);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 2);
+        expect(batchTable.attributes).toBe(attributes);
         expect(batchTable.numberOfInstances).toEqual(2);
     });
 
     it('constructior throws without context', function() {
         expect(function() {
-            batchTable = new BatchTable(undefined, unsignedByteAttributes, 5);
+            var attributes = unsignedByteAttributes.slice();
+            batchTable = new BatchTable(undefined, attributes, 5);
         }).toThrowDeveloperError();
     });
 
@@ -74,12 +76,14 @@ defineSuite([
 
     it('constructor throws without number of instances', function() {
         expect(function() {
-            batchTable = new BatchTable(context, unsignedByteAttributes, undefined);
+            var attributes = unsignedByteAttributes.slice();
+            batchTable = new BatchTable(context, attributes, undefined);
         }).toThrowDeveloperError();
     });
 
     it('sets and gets entries in the table', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
 
         var i;
         var color = new Cartesian4(0, 1, 2, 3);
@@ -105,7 +109,8 @@ defineSuite([
         var context = {
             floatingPointTexture : true
         };
-        batchTable = new BatchTable(context, floatAttributes, 5);
+        var attributes = floatAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
 
         var i;
         var color = new Cartesian4(0, 1, 2, 3);
@@ -131,7 +136,8 @@ defineSuite([
         var context = {
             floatingPointTexture : false
         };
-        batchTable = new BatchTable(context, floatAttributes, 5);
+        var attributes = floatAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
 
         var i;
         var color = new Cartesian4(1.23456e12, -2.34567e30, 3.45678e-6, -4.56789e-10);
@@ -163,7 +169,8 @@ defineSuite([
     });
 
     it('gets with result parameter', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         var color = new Cartesian4(0, 1, 2, 3);
         batchTable.setBatchedAttribute(0, 1, color);
 
@@ -174,7 +181,8 @@ defineSuite([
     });
 
     it('get entry throws when instance index is out of range', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         expect(function() {
             batchTable.getBatchedAttribute(-1, 0);
         }).toThrowDeveloperError();
@@ -184,7 +192,8 @@ defineSuite([
     });
 
     it('get entry throws when attribute index is out of range', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         expect(function() {
             batchTable.getBatchedAttribute(0, -1);
         }).toThrowDeveloperError();
@@ -194,7 +203,8 @@ defineSuite([
     });
 
     it('set entry throws when instance index is out of range', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         expect(function() {
             batchTable.setBatchedAttribute(-1, 0, 0);
         }).toThrowDeveloperError();
@@ -204,7 +214,8 @@ defineSuite([
     });
 
     it('set entry throws when attribute index is out of range', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         expect(function() {
             batchTable.setBatchedAttribute(0, -1, 1);
         }).toThrowDeveloperError();
@@ -214,14 +225,16 @@ defineSuite([
     });
 
     it('set entry throws when value is undefined', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         expect(function() {
             batchTable.setBatchedAttribute(0, 0, undefined);
         }).toThrowDeveloperError();
     });
 
     it('creates a uniform callback with unsigned byte texture', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         batchTable.update(scene.frameState);
 
         var uniforms = batchTable.getUniformMapCallback()({});
@@ -242,8 +255,8 @@ defineSuite([
         if (!context.floatingPointTexture) {
             return;
         }
-
-        batchTable = new BatchTable(context, floatAttributes, 5);
+        var attributes = floatAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         batchTable.update(scene.frameState);
 
         var uniforms = batchTable.getUniformMapCallback()({});
@@ -267,7 +280,8 @@ defineSuite([
     });
 
     it('create shader functions', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
 
         var shader = 'void main() { gl_Position = vec4(0.0); }';
         var modifiedShader = batchTable.getVertexShaderCallback()(shader);
@@ -276,7 +290,8 @@ defineSuite([
     });
 
     it('isDestroyed', function() {
-        batchTable = new BatchTable(context, unsignedByteAttributes, 5);
+        var attributes = unsignedByteAttributes.slice();
+        batchTable = new BatchTable(context, attributes, 5);
         expect(batchTable.isDestroyed()).toEqual(false);
         batchTable.destroy();
         expect(batchTable.isDestroyed()).toEqual(true);

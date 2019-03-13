@@ -114,7 +114,7 @@ defineSuite([
     });
 
     afterEach(function() {
-        cubeMap = cubeMap && cubeMap.destroy();
+        cubeMap = (cubeMap && !cubeMap.isDestroyed()) ? cubeMap.destroy() : cubeMap;
     });
 
     it('gets the pixel format', function() {
@@ -892,6 +892,8 @@ defineSuite([
             uniformMap : uniformMap
         }).contextToRender([255, 0, 0, 255]);
 
+        // must be destroyed before context is destroyed
+        cubeMap.destroy();
         cxt.destroyForSpecs();
     });
 

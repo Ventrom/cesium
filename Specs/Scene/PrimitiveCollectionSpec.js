@@ -287,8 +287,9 @@ defineSuite([
         otherPrimitives.destroyPrimitives = false;
         otherPrimitives.add(p);
 
-        verifyPrimitivesRender(primitives);
+        // order is important, otherwise scene.primitives can't be cleaned up correctly
         verifyPrimitivesRender(otherPrimitives);
+        verifyPrimitivesRender(primitives);
 
         otherPrimitives.destroy();
     });

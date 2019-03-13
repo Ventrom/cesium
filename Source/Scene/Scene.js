@@ -4501,6 +4501,8 @@ define([
         }
         this._removeGlobeCallbacks.length = 0;
 
+        destroyObject(this._frameState);
+
         return destroyObject(this);
     };
 

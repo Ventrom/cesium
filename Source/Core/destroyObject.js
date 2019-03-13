@@ -46,9 +46,17 @@ define([
             //>>includeEnd('debug');
         }
 
+        function wasDestroyed() { return true; }
+
         for ( var key in object) {
             if (typeof object[key] === 'function') {
-                object[key] = throwOnDestroyed;
+                if (key === 'isDestroyed') {
+                    object[key] = wasDestroyed;
+                } else {
+                    object[key] = throwOnDestroyed;
+                }
+            } else if (Array.isArray(object[key])) {
+                object[key].length = 0;
             }
         }
 
