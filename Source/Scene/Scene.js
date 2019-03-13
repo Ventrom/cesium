@@ -4488,6 +4488,7 @@ Scene.prototype.destroy = function () {
   }
   this._removeGlobeCallbacks.length = 0;
 
+  destroyObject(this._frameState);
   return destroyObject(this);
 };
 export default Scene;

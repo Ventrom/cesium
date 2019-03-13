@@ -173,7 +173,7 @@ PrimitiveCollection.prototype.remove = function (primitive) {
  */
 PrimitiveCollection.prototype.removeAndDestroy = function (primitive) {
   var removed = this.remove(primitive);
-  if (removed && !this.destroyPrimitives) {
+  if (removed && !this.destroyPrimitives && primitive.destroy) {
     primitive.destroy();
   }
   return removed;
@@ -191,7 +191,7 @@ PrimitiveCollection.prototype.removeAll = function () {
   var length = primitives.length;
   for (var i = 0; i < length; ++i) {
     delete primitives[i]._external._composites[this._guid];
-    if (this.destroyPrimitives) {
+    if (this.destroyPrimitives && primitives[i].destroy) {
       primitives[i].destroy();
     }
   }

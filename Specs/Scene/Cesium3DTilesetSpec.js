@@ -2401,16 +2401,17 @@ describe(
         tileset
       ) {
         var root = tileset.root;
+        var children = root.children.slice();
         expect(tileset.isDestroyed()).toEqual(false);
         scene.primitives.remove(tileset);
         expect(tileset.isDestroyed()).toEqual(true);
 
         // Check that all tiles are destroyed
         expect(root.isDestroyed()).toEqual(true);
-        expect(root.children[0].isDestroyed()).toEqual(true);
-        expect(root.children[1].isDestroyed()).toEqual(true);
-        expect(root.children[2].isDestroyed()).toEqual(true);
-        expect(root.children[3].isDestroyed()).toEqual(true);
+        expect(children[0].isDestroyed()).toEqual(true);
+        expect(children[1].isDestroyed()).toEqual(true);
+        expect(children[2].isDestroyed()).toEqual(true);
+        expect(children[3].isDestroyed()).toEqual(true);
       });
     });
 
@@ -3844,7 +3845,7 @@ describe(
         });
 
         var subtreeRoot = tileset.root.children[0];
-        var subtreeChildren = subtreeRoot.children[0].children;
+        var subtreeChildren = subtreeRoot.children[0].children.slice();
         var childrenLength = subtreeChildren.length;
         var statistics = tileset._statistics;
 

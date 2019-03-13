@@ -18,6 +18,7 @@ import QuadtreeTileLoadState from "./QuadtreeTileLoadState.js";
 import SceneMode from "./SceneMode.js";
 import TileReplacementQueue from "./TileReplacementQueue.js";
 import TileSelectionResult from "./TileSelectionResult.js";
+import destroyObject from "../Core/destroyObject.js";
 
 /**
  * Renders massive sets of data by utilizing level-of-detail and culling.  The globe surface is divided into
@@ -231,6 +232,7 @@ function invalidateAllTiles(primitive) {
 
       levelZeroTiles[i].freeResources();
     }
+    levelZeroTiles.length = 0;
   }
 
   primitive._levelZeroTiles = undefined;
@@ -492,7 +494,10 @@ QuadtreePrimitive.prototype.isDestroyed = function () {
  * @see QuadtreePrimitive#isDestroyed
  */
 QuadtreePrimitive.prototype.destroy = function () {
+  clearTileLoadQueue(this);
+  this._tileReplacementQueue.trimTiles(0);
   this._tileProvider = this._tileProvider && this._tileProvider.destroy();
+  destroyObject(this);
 };
 
 var comparisonPoint;
@@ -1565,6 +1570,7 @@ function updateHeights(primitive, frameState) {
   for (i = 0; i < tryNextFrame.length; i++) {
     tilesToUpdateHeights.push(tryNextFrame[i]);
   }
+  tryNextFrame.length = 0;
 }
 
 function createRenderCommandsForSelectedTiles(primitive, frameState) {

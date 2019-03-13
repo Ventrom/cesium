@@ -2558,6 +2558,7 @@ function setReady(primitive, frameState, state, error) {
   primitive._error = error;
   primitive._state = state;
   frameState.afterRender.push(function () {
+    if (primitive.isDestroyed()) return;
     primitive._ready =
       primitive._state === PrimitiveState.COMPLETE ||
       primitive._state === PrimitiveState.FAILED;

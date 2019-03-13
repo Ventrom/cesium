@@ -107,7 +107,7 @@ describe(
       expect(scene).notToRender([0, 0, 0, 255]);
       expect(scene).notToRender(result);
 
-      ellipsoid2.destroy();
+      scene.primitives.removeAndDestroy(ellipsoid2);
     });
 
     it("renders bounding volume with debugShowBoundingVolume", function () {

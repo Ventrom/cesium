@@ -44,6 +44,20 @@ function destroyObject(object, message) {
     //>>includeEnd('debug');
   }
 
+  function wasDestroyed() { return true; }
+
+  for ( var key in object) {
+    if (typeof object[key] === 'function') {
+      if (key === 'isDestroyed') {
+        object[key] = wasDestroyed;
+      } else {
+        object[key] = throwOnDestroyed;
+      }
+    } else if (Array.isArray(object[key])) {
+      object[key].length = 0;
+    }
+  }
+
   for (var key in object) {
     if (typeof object[key] === "function") {
       object[key] = throwOnDestroyed;
