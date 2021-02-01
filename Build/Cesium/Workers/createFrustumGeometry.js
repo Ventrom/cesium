@@ -1,0 +1,2 @@
+define(["./when-54c2dc71","./FrustumGeometry-17a6ab06","./Transforms-c00dcfdd","./Cartesian2-15709417","./Check-6c0211bc","./Math-fbfbe3b1","./RuntimeError-2109023a","./ComponentDatatype-a26dd044","./WebGLConstants-76bb35d1","./GeometryAttribute-c2f3a6a0","./GeometryAttributes-4fcfcf40","./Plane-ff99a7c3","./VertexFormat-4d8b817a"],function(r,a,e,t,n,c,u,f,o,m,b,d,s){"use strict";return function(e,t){return r.defined(t)&&(e=a.FrustumGeometry.unpack(e,t)),a.FrustumGeometry.createGeometry(e)}});
+//# sourceMappingURL=createFrustumGeometry.js.map
