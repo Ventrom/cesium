@@ -17,9 +17,8 @@ function getPosition(screenSpaceEventHandler, event, result) {
     return result;
   }
 
-  var rect = element.getBoundingClientRect();
-  result.x = event.clientX - rect.left;
-  result.y = event.clientY - rect.top;
+  result.x = event.offsetX;
+  result.y = event.offsetY;
   return result;
 }
 
