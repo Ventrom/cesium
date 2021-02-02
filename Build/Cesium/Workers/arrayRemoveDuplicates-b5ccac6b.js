@@ -1,2 +1,0 @@
-define(["exports","./Check-6c0211bc","./when-54c2dc71","./Math-fbfbe3b1"],function(e,a,h,t){"use strict";var l=t.CesiumMath.EPSILON10;e.arrayRemoveDuplicates=function(e,t,n){if(a.Check.defined("equalsEpsilon",t),h.defined(e)){n=h.defaultValue(n,!1);var i,r,f,c=e.length;if(c<2)return e;for(i=1;i<c&&!t(r=e[i-1],f=e[i],l);++i);if(i===c)return n&&t(e[0],e[e.length-1],l)?e.slice(1):e;for(var u=e.slice(0,i);i<c;++i)t(r,f=e[i],l)||(u.push(f),r=f);return n&&1<u.length&&t(u[0],u[u.length-1],l)&&u.shift(),u}}});
-//# sourceMappingURL=arrayRemoveDuplicates-b5ccac6b.js.map
