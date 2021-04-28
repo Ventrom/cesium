@@ -25,6 +25,6 @@ function isCrossOriginUrl(url) {
   // eslint-disable-next-line no-self-assign
   a.href = a.href;
 
-  return protocol !== a.protocol || host !== a.host;
+  return protocol !== a.protocol || host !== a.host || host === "";
 }
 export default isCrossOriginUrl;
